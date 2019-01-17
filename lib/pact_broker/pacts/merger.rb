@@ -48,7 +48,11 @@ module PactBroker
 
       def same_description_and_state? original, additional
         original["description"] == additional["description"] &&
-          original["provider_state"] == additional["provider_state"]
+          same_state?(original, additional)
+      end
+
+      def same_state?(original, additional)
+        original.values_at("provider_state", "providerState").compact == additional.values_at("provider_state", "providerState").compact
       end
 
       def same_request_properties? original, additional
